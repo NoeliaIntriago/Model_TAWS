@@ -1,5 +1,6 @@
 import models.ml.classifier as clf
-from fastapi import FastAPI, HTTPException, Body
+import numpy as np
+from fastapi import FastAPI, HTTPException
 from joblib import load
 from models.Iris import Iris
 
@@ -21,6 +22,6 @@ async def load_model():
 async def get_prediction(iris: Iris):
     data = dict(iris)['data']
     prediction = clf.model.predict(data).tolist()
-    log_proba = clf.model.predict_proba(data).tolist()
+    probability = clf.model.predict_proba(data).tolist()
     return {"prediction": prediction,
-            'log_proba': log_proba}
+            "probability": probability}
