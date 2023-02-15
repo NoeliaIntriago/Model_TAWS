@@ -1,22 +1,34 @@
 # Model_TAWS
 Despliegue de modelo Machine Learning usando Python + FastAPI + Docker
 
-# Instalar paquete para crear entorno virtual
+## Descripción
+
+
+## 1. Instalar paquete para crear entorno virtual
 ```
 $ pip install virtualenv
 ```
 
-# Crear un entorno virtual
+## 2. Crear un entorno virtual
 ```
 $ virtualenv venv
 ```
 
-# Activar entorno virtual
+## 3. Activar entorno virtual
 ```
-$ . ./venv/Scripts/activate
+$ <<ruta>>/venv/Scripts/activate
 ```
 
-# Ejecutar aplicación web
+## 4. Instalar paquetes
+```
+$ pip install -r requirements.txt
+```
+
+## 5. Ejecutar aplicación web
 ```
 $ uvicorn main:app --reload
+```
+## 6. Dockerizar aplicación web
+```
+$ 
 ```
