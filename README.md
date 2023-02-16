@@ -11,6 +11,8 @@ Para entrenar este modelo de clasificación, se usará el dataset Iris, el cual 
  
  Las observaciones podrán ser clasificadas en una de las siguientes 3 clases: Iris Versicolor, Iris Setosa e Iris Virginica.
 
+ La petición para obtener una predicción se la realizará mediante una API realizada con el framework FastAPI, el cual será desplegada en producción posteriormente con Docker.
+
 ## Estructura de proyecto
 ```
 model_taws/
