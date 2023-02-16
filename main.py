@@ -1,4 +1,4 @@
-import models.ml.classifier as clf
+from models.ml.classifier import model
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from joblib import load
@@ -23,13 +23,14 @@ def home():
 # Importa modelo solo al iniciar, no cada que se realiza una petición
 @app.on_event('startup')
 async def load_model():
-    clf.model = load('./models/ml/iris_dt_vl.joblib')
+    model = load('./models/ml/iris_dt_vl.joblib')
 
 # Petición para predecir
 @app.post('/predict', tags=["Prediction - Iris ML Model"])
-async def get_prediction(iris: Iris):
-    data = dict(iris)['data']
-    prediction = clf.model.predict(data).tolist()
-    probability = clf.model.predict_proba(data).tolist()
-    return {"prediction": prediction,
+async def get_prediction(param1: float=0, param2: float=0, param3: float=0, param4: float=0):
+    data = np.array([[param1, param2, param3, param4]])
+    prediction = model.predict(data).tolist()[0]
+    flores = {0:"Setosa", 1:"Virginica", 2:"Versicolor"}
+    probability = model.predict_proba(data).tolist()
+    return {"prediction": flores[prediction],
             "probability": probability}
