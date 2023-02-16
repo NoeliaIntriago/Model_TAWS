@@ -3,6 +3,9 @@ import main
 
 client = TestClient(main.app)
 
-def test_read_main():
-    response = client.get("/")
+def test_predict():
+    response = client.post("/predict", params={"longitud_sepalo":4.8, 
+                                                "ancho_sepalo":1.3, 
+                                                "longitud_petalo": 1, 
+                                                "ancho_petalo": 2})
     assert response.status_code == 200
