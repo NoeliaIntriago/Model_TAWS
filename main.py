@@ -27,8 +27,11 @@ async def load_model():
 
 # Petición para predecir
 @app.post('/predict', tags=["Prediction - Iris ML Model"])
-async def get_prediction(param1: float=Query(default=None, gt=0, le=5 ), param2: float = Query(default=None, gt=0, le=5 ), param3: float = Query(default=None, gt=0, le=5 ) , param4: float = Query(default=None, gt=0, le=5 )):
-    data = np.array([[param1, param2, param3, param4]])
+async def get_prediction(longitud_sepalo: float=Query(default=None, gt=0, le=10 ), 
+                            ancho_sepalo: float = Query(default=None, gt=0, le=10 ), 
+                            longitud_petalo: float = Query(default=None, gt=0, le=10 ), 
+                            ancho_petalo: float = Query(default=None, gt=0, le=10 )):
+    data = np.array([[longitud_sepalo, ancho_sepalo, longitud_petalo, ancho_petalo]])
     prediction = clf.model.predict(data).tolist()[0]
     flores = {0:"Setosa", 1:"Versicolor", 2:"Virginica"}
     probability = clf.model.predict_proba(data).tolist()
