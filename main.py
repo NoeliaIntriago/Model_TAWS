@@ -32,8 +32,11 @@ async def get_prediction(longitud_sepalo: float=0,
                             longitud_petalo: float=0, 
                             ancho_petalo: float=0):
     data = np.array([[longitud_sepalo, ancho_sepalo, longitud_petalo, ancho_petalo]])
-    prediction = clf.model.predict(data).tolist()[0]
-    flores = {0:"Setosa", 1:"Versicolor", 2:"Virginica"}
-    probability = clf.model.predict_proba(data).tolist()
-    return {"prediction": flores[prediction],
-            "probability": probability}
+    if (longitud_sepalo < 0) or (ancho_sepalo < 0) or (longitud_petalo < 0) or (ancho_petalo < 0):
+        raise HTTPException(status_code=422, detail="Datos erróneos")
+    else:
+        prediction = clf.model.predict(data).tolist()[0]
+        flores = {0:"Setosa", 1:"Versicolor", 2:"Virginica"}
+        probability = clf.model.predict_proba(data).tolist()
+        return {"prediction": flores[prediction],
+                "probability": probability}
