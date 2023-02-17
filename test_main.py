@@ -1,11 +1,19 @@
 from fastapi.testclient import TestClient
-import main
+import models.ml.classifier as clf
+from main import app
 
-client = TestClient(main.app)
 
-def test_predict():
-    response = client.post("/predict", params={"longitud_sepalo":4.8, 
-                                                "ancho_sepalo":1.3, 
-                                                "longitud_petalo": 1, 
-                                                "ancho_petalo": 2})
-    assert response.status_code == 200
+client = TestClient(app)
+
+
+def test_read_main():
+    with TestClient(app) as client:
+        response = client.post("/predict",params={"param1":0,
+                                                "param2":0,
+                                                "param3":0,
+                                                "param4":0})
+        assert response.status_code == 200
+        assert response.json() == {"prediction": "Setosa",
+                                    "probability": [[1.0, 0.0, 0.0]]}
+        
+    
