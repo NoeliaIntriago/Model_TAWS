@@ -59,5 +59,5 @@ $ uvicorn main:app --reload
 ## 6. Dockerizar aplicación web
 ```
 $ docker build . -t iris_ml_docker
-$ docker run -p 8000:8000 iris_ml_docker
+$ docker run -p 80:80 iris_ml_docker
 ```
