@@ -6,17 +6,37 @@ from main import app
 client = TestClient(app)
 
 
-def test_predict_status():
+def test_predict_setosa():
     with TestClient(app) as client:
-        response = client.post("/predict",params={"longitud_sepalo":1,
-                                                "ancho_sepalo":2,
-                                                "longitud_petalo":2,
-                                                "ancho_petalo":2})
+        response = client.post("/predict",params={"longitud_sepalo":5.1,
+                                                "ancho_sepalo":3.2,
+                                                "longitud_petalo":1.4,
+                                                "ancho_petalo":0.2})
         assert response.status_code == 200
         assert response.json() == {"prediction": "Setosa",
                                     "probability": [[1.0, 0.0, 0.0]]}
 
-def test_when_params_le_zero():
+def test_predict_versicolor():
+    with TestClient(app) as client:
+        response = client.post("/predict",params={"longitud_sepalo":6.5,
+                                                "ancho_sepalo":3.2,
+                                                "longitud_petalo":4.6,
+                                                "ancho_petalo":1.5})
+        assert response.status_code == 200
+        assert response.json() == {"prediction": "Versicolor",
+                                    "probability": [[0.0, 1.0, 0.0]]}
+
+def test_predict_virginica():
+    with TestClient(app) as client:
+        response = client.post("/predict",params={"longitud_sepalo":6,
+                                                "ancho_sepalo":3.3,
+                                                "longitud_petalo":6,
+                                                "ancho_petalo":2.5})
+        assert response.status_code == 200
+        assert response.json() == {"prediction": "Virginica",
+                                    "probability": [[0.0, 0.0, 1.0]]}                                                                        
+
+def test_when_params_less_zero():
     with TestClient(app) as client:
         response = client.post("/predict",params={"longitud_sepalo":-1,
                                                 "ancho_sepalo":1,
